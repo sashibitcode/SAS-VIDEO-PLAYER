@@ -1,19 +1,29 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:video_player_win/video_player_win_plugin.dart';
 import 'screens/video_list_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Configure system navigation and status bar style
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Color(0xFF0D0F17),
-      systemNavigationBarIconBrightness: Brightness.light,
-    ),
-  );
+  // Register Windows Media Foundation implementation on Windows desktop
+  if (!kIsWeb && Platform.isWindows) {
+    WindowsVideoPlayer.registerWith();
+  }
+
+  // Configure system navigation and status bar style for mobile
+  if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Color(0xFF0D0F17),
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
+  }
 
   runApp(const GSVideoPlayerApp());
 }
@@ -24,7 +34,7 @@ class GSVideoPlayerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'GS Video Player',
+      title: 'GS Video Player - Laptop & Mobile',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(
