@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:open_filex/open_filex.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import '../models/app_update_info.dart';
 
 class UpdateService {
+  // Current app version constants
+  static const int currentVersionCode = 1;
+  static const String currentVersionName = "1.0.0";
+
   // Website or GitHub raw URL for version.json
   // When you deploy your website or push to GitHub, update this endpoint if needed
   static const String defaultUpdateUrl = 
@@ -25,10 +28,7 @@ class UpdateService {
         final Map<String, dynamic> data = json.decode(response.body);
         final AppUpdateInfo updateInfo = AppUpdateInfo.fromJson(data);
 
-        final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-        final int currentBuildNumber = int.tryParse(packageInfo.buildNumber) ?? 1;
-
-        if (updateInfo.versionCode > currentBuildNumber) {
+        if (updateInfo.versionCode > currentVersionCode) {
           return updateInfo;
         }
       }
