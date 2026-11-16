@@ -34,7 +34,7 @@ class GSVideoPlayerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'GS Video Player - Laptop & Mobile',
+      title: 'SAS Video Player - Laptop & Mobile',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData(

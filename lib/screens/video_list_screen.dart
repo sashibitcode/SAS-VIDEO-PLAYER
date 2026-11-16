@@ -81,7 +81,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
             children: [
               Icon(Icons.check_circle_rounded, color: Color(0xFF00ADB5), size: 18),
               SizedBox(width: 8),
-              Text("GS Video Player is up to date!"),
+              Text("SAS Video Player is up to date!"),
             ],
           ),
           backgroundColor: const Color(0xFF1E2235),
@@ -258,7 +258,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "GS Video Player",
+                  "SAS Video Player",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

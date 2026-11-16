@@ -48,7 +48,7 @@ class PermissionDeniedView extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             const Text(
-              "GS Video Player needs access to your media files to discover and play all the videos stored on your device.",
+              "SAS Video Player needs access to your media files to discover and play all the videos stored on your device.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
