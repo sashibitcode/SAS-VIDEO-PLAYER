@@ -19,7 +19,7 @@ class AppUpdateInfo {
     return AppUpdateInfo(
       versionCode: json['version_code'] as int? ?? 1,
       versionName: json['version_name'] as String? ?? '1.0.0',
-      downloadUrl: json['download_url'] as String? ?? '',
+      downloadUrl: (json['download_url'] ?? json['download_url_android'] ?? '') as String,
       releaseNotes: json['release_notes'] as String? ?? 'Performance improvements and bug fixes.',
       fileSize: json['file_size'] as String?,
       isForceUpdate: json['is_force_update'] as bool? ?? false,

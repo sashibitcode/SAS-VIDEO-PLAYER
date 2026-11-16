@@ -12,28 +12,36 @@ class UpdateService {
   static const String currentVersionName = "1.0.0";
 
   // Website or GitHub raw URL for version.json
-  // When you deploy your website or push to GitHub, update this endpoint if needed
   static const String defaultUpdateUrl = 
-      "https://raw.githubusercontent.com/harsh/gs-video-player/main/version.json";
+      "https://raw.githubusercontent.com/sashibitcode/SAS-VIDEO-PLAYER/main/version.json";
+  static const String fallbackUpdateUrl = 
+      "https://github.com/sashibitcode/SAS-VIDEO-PLAYER/releases/latest/download/version.json";
 
   /// Checks if a newer version is available
   static Future<AppUpdateInfo?> checkForUpdate({String? customUrl}) async {
-    try {
-      final String url = customUrl ?? defaultUpdateUrl;
-      final response = await http
-          .get(Uri.parse(url))
-          .timeout(const Duration(seconds: 6));
+    final List<String> urlsToTry = customUrl != null 
+        ? [customUrl] 
+        : [defaultUpdateUrl, fallbackUpdateUrl];
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        final AppUpdateInfo updateInfo = AppUpdateInfo.fromJson(data);
+    for (final String url in urlsToTry) {
+      try {
+        final response = await http
+            .get(Uri.parse(url))
+            .timeout(const Duration(seconds: 6));
 
-        if (updateInfo.versionCode > currentVersionCode) {
-          return updateInfo;
+        if (response.statusCode == 200) {
+          final Map<String, dynamic> data = json.decode(response.body);
+          final AppUpdateInfo updateInfo = AppUpdateInfo.fromJson(data);
+
+          if (updateInfo.versionCode > currentVersionCode) {
+            return updateInfo;
+          }
+          // If 200 received and current version is up to date, no need to fallback
+          return null;
         }
+      } catch (_) {
+        // Continue to fallback if network error or timeout
       }
-    } catch (_) {
-      // Offline or network timeout - fail silently
     }
     return null;
   }

@@ -127,6 +127,7 @@ jobs:
             "app_id": "com.example.gs_video_player",
             "version_code": ${{ steps.version.outputs.version_code }},
             "version_name": "${{ steps.version.outputs.version_name }}",
+            "download_url": "https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/GS_VIDEO_PLAYER_Android.apk",
             "download_url_android": "https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/GS_VIDEO_PLAYER_Android.apk",
             "download_url_windows": "https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/GS_VIDEO_PLAYER_Windows_x64.zip",
             "release_notes": "Official Release ${{ steps.version.outputs.tag }} for Android Mobile & Windows Laptop!",
